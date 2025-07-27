@@ -1,0 +1,17 @@
+{
+    "name": "nodejs-webservice",
+    "version": "1.0.0",
+    "description": "Simple Ping-pong server",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "node --watch index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Sarthak Tickoo",
+    "license": "MIT",
+    "dependencies": {
+        "hyper-express": "^6.17.3"
+    }
+}

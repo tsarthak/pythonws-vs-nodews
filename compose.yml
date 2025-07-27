@@ -1,0 +1,16 @@
+services:
+    nodejs:
+        build:
+            context: ./nodejs
+            dockerfile: Dockerfile
+        command: ["npm", "start"]
+        ports:
+            - "8000:8000"
+
+    python:
+        build:
+            context: ./python
+            dockerfile: Dockerfile
+        command: ["uv", "run", "main.py"]
+        ports:
+            - "8000:8000"
