@@ -14,3 +14,26 @@ services:
         command: ["uv", "run", "main.py"]
         ports:
             - "8000:8000"
+
+    cpp:
+        build:
+            context: ./cpp
+            dockerfile: Dockerfile
+        command: ["./server"]
+        ports:
+            - "8000:8000"
+
+    java:
+        build:
+            context: ./java
+            dockerfile: Dockerfile
+        ports:
+            - "8000:8000"
+
+    rust:
+        build:
+            context: ./rust
+            dockerfile: Dockerfile
+        command: ["./pingpong-server"]
+        ports:
+            - "8000:8000"

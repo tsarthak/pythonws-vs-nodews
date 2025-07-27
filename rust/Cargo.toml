@@ -1,0 +1,33 @@
+[package]
+name = "pingpong-server"
+version = "1.0.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "High-performance HTTP ping-pong server using Actix Web"
+
+[[bin]]
+name = "pingpong-server"
+path = "main.rs"
+
+[dependencies]
+actix-web = "4.4"
+actix-cors = "0.7"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+chrono = { version = "0.4", features = ["serde"] }
+env_logger = "0.10"
+log = "0.4"
+num_cpus = "1.16"
+
+[profile.release]
+# Optimize for performance
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.dev]
+# Faster compilation during development
+opt-level = 1
