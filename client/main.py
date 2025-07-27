@@ -13,7 +13,7 @@ def fetch_data(iterations):
 
     for _ in range(iterations):
         response = requests.get("http://localhost:8000/ping")
-        time.sleep(10e-5)
+        time.sleep(10e-4)
         if response.status_code != 200:
             print(f"Error: Received status code {response.status_code}")
             raise RuntimeError("Failed to fetch data from the server")
@@ -26,8 +26,8 @@ def fetch_data(iterations):
 
 
 def main():
-    workers = 100
-    iterations = 5000
+    workers = 4
+    iterations = 100000
     print(f"Using {workers} workers")
     with PoolExecutor(max_workers=workers) as executor:
         total = 0.0
