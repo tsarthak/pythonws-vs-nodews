@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Async Console Appender for high performance -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+
+        <!-- Async File Appender for production -->
+        <RollingFile name="FileAppender"
+            fileName="logs/pingpong-server.log"
+            filePattern="logs/pingpong-server-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+
+        <!-- Async wrapper for better performance -->
+        <Async name="AsyncConsole" includeLocation="false">
+            <AppenderRef ref="ConsoleAppender" />
+        </Async>
+
+        <Async name="AsyncFile" includeLocation="false">
+            <AppenderRef ref="FileAppender" />
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <!-- Application specific logging -->
+        <Logger name="com.example.pingpong" level="INFO" additivity="false">
+            <AppenderRef ref="AsyncConsole" />
+            <AppenderRef ref="AsyncFile" />
+        </Logger>
+
+        <!-- Reduce Spring Boot noise -->
+        <Logger name="org.springframework" level="WARN" additivity="false">
+            <AppenderRef ref="AsyncConsole" />
+        </Logger>
+
+        <Logger name="org.apache.catalina" level="WARN" additivity="false">
+            <AppenderRef ref="AsyncConsole" />
+        </Logger>
+
+        <Logger name="org.apache.coyote" level="WARN" additivity="false">
+            <AppenderRef ref="AsyncConsole" />
+        </Logger>
+
+        <!-- Root logger -->
+        <Root level="INFO">
+            <AppenderRef ref="AsyncConsole" />
+            <AppenderRef ref="AsyncFile" />
+        </Root>
+    </Loggers>
+</Configuration>
